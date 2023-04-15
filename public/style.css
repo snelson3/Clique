@@ -1,0 +1,228 @@
+@import url(https://fonts.googleapis.com/css?family=Fjalla+One);
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #2f5a5d 0%, #42494d 100%);
+    font-family: "Comic Sans MS", "Fjalla One", sans-serif;
+}
+
+h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 6rem;
+    margin: 0;
+    line-height: 9rem;
+    letter-spacing: 2px;
+}
+
+/* Common elements. */
+.hidden {
+    visibility: hidden;
+}
+
+/* Game elements. */
+#game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -999;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#status, #key, #table-item, #chat {
+    position: absolute;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    color: lightgray;
+}
+
+#status {
+    top: 1rem;
+    left: 1rem;
+    font-size: 0.75rem;
+}
+
+#key {
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+    font-size: 2rem;
+}
+
+#chat {
+    bottom: 1rem;
+    left: 1rem;
+    width: 480px;
+    text-align: left;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    max-height: 400px;
+}
+
+#table-item {
+    bottom: 2rem;
+    right: 2rem;
+    cursor: pointer;
+}
+
+#table-item img {
+    animation: glow 2s cubic-bezier(0.11, 0, 0.5, 0) 0s infinite normal forwards;
+}
+
+.rainbow {
+    background:
+            linear-gradient(rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%)
+            0 0/100% 200%;
+
+    animation: background 5s linear infinite;
+}
+
+@keyframes background {
+    to {background-position:0 -200%}
+}
+
+@keyframes glow {
+    0%,
+    50%,
+    100% {
+        -webkit-filter: drop-shadow(0px 0px 7px rgba(255,255,255,0.5));
+    }
+
+    25%,
+    75% {
+        -webkit-filter: drop-shadow(0px 0px 2px rgba(255,255,255,0.5));
+    }
+}
+
+/* Button */
+.button-frame-side {
+    display: flex;
+    height: 232px;
+    width: 232px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: darkorange;
+    box-shadow: 0 0 40px 5px darkorange;
+}
+
+.button-frame {
+    background-color: orange;
+    display: flex;
+    height: 232px;
+    width: 232px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    transform: translateY(-12px);
+}
+
+.button {
+    background: hsl(340deg 100% 32%);
+    border-radius: 1rem;
+    border: none;
+    padding: 0;
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+    outline-offset: 4px;
+}
+
+.button-face {
+    height: 200px;
+    width: 200px;
+    will-change: transform;
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: hsl(345deg 100% 47%);
+    color: white;
+    transform: translateY(-32px);
+}
+
+.button.locked .button-face {
+    transform: translateY(-4px) !important;
+    cursor: not-allowed !important;
+    background: hsl(345deg 100% 12%);
+}
+
+.button.locked .button-face:active {
+    transform: translateY(-2px) !important;
+}
+
+.button.locked {
+    background-color: hsl(340deg 100% 4%);
+}
+
+.button:hover .button-face {
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.button:active .button-face {
+    transform: translateY(-0px);
+    transition: transform 34ms;
+}
+
+.button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Title elements. */
+.title-container {
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    display: block;
+    position: absolute;
+    width: 800px;
+}
+
+.title {
+    transform: translateX(-50%) rotate(-10deg);
+    display: block;
+    float: left;
+    left: 50%;
+    position: relative;
+    animation: glow 2s cubic-bezier(0.11, 0, 0.5, 0) 0s infinite normal forwards;
+}
+
+.title span {
+    transform: skew(-10deg);
+    display: block;
+    float: left;
+    min-width: 30px;
+    min-height: 30px;
+    position: relative;
+    text-shadow: #533d4a 1px 1px,
+    #533d4a 2px 2px,
+    #533d4a 3px 3px,
+    #533d4a 4px 4px,
+    #533d4a 5px 5px,
+    #533d4a 6px 6px;
+}
+
+.title:nth-child(1) {
+    color: #e55643;
+}
+
+.title:nth-child(2) {
+    color: #2b9f5e;
+}
+
+.title:nth-child(3) {
+    color: #f1c83c;
+}

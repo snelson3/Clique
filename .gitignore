@@ -1,0 +1,4 @@
+node_modules
+public/sfx/*
+public/assets/*
+!public/sfx/.placeholder

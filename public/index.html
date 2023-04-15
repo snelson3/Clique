@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clique for Archipelago</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body id="root">
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+    <script src="../node_modules/archipelago.js/dist/archipelago.min.js"></script>
+    <script src="confetti.js"></script>
+
+    <!-- Audio resources -->
+    <audio id="congratulations_sfx">
+        <source src="sfx/css1_cheer.wav" type="audio/wav">
+    </audio>
+    <audio id="button_click_sfx">
+        <source src="sfx/click.wav" type="audio/wav">
+    </audio>
+    <audio id="button_error_sfx">
+        <source src="sfx/error.wav" type="audio/wav">
+    </audio>
+    <audio id="button_unlock_sfx">
+        <source src="sfx/unlock.wav" type="audio/wav">
+    </audio>
+
+    <!-- Game resources -->
+    <div id="game" class="hidden">
+        <!-- Win text -->
+        <div id="victory" class="title-container hidden">
+            <h1>
+                <span class="title">You</span>
+                <span class="title">Win!</span>
+                <span class="title">Conglaturations!</span>
+            </h1>
+        </div>
+
+        <!-- HUD -->
+        <div id="status">a</div>
+        <div id="key"></div>
+        <div id="table-item" onclick="collectTableItem()">
+            <img src="assets/archipelago-icon.png" alt="Random AP item on table." width="128" height="128">
+        </div>
+        <div id="chat"></div>
+
+        <!-- Button -->
+        <div class="button-frame-side">
+            <div class="button-frame">
+                <button id="button" class="button" onclick="pressButton()">
+                    <span class="button-face">PUSH ME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="../src/game.js"></script>
+</body>
+</html>
