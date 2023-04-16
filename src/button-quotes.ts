@@ -29,6 +29,12 @@ export const locked_quotes: ButtonQuote[] = [
     { attribution: "Hopop",        quote: "DO NOT CLIQUE" },
     { attribution: "Gesellschaft", quote: "THAT WAS HARD" },
     { attribution: "Gesellschaft", quote: "SKILL ISSUE" },
+    { attribution: "Anonymous",    quote: ">:3" },
+    { attribution: "Anonymous",    quote: "JUST USE A KEYBLADE TO UNLOCK THIS" },
+    { attribution: "Anonymous",    quote: ">_<" },
+    { attribution: "Anonymous",    quote: "ADREM WHY" },
+    { attribution: "Anonymous",    quote: "NO BOOPS ALLOWED" },
+    { attribution: "Anonymous",    quote: "I HOPE YOU'RE HAVING A NICE DAY" },
 ];
 
 export const button_quotes: ButtonQuote[] = [
@@ -58,6 +64,15 @@ export const button_quotes: ButtonQuote[] = [
     { attribution: "Gesellschaft", quote: "SQUEAKY" },
     { attribution: "Gesellschaft", quote: "AWOOGA!" },
     { attribution: "Gesellschaft", quote: "FIRE ZE MISSILES" },
+    { attribution: "Anonymous",    quote: "I BET IT'S A MOON PEARL" },
+    { attribution: "Anonymous",    quote: "LET'S PLAY BUTTON PUSHING GAME" },
+    { attribution: "Anonymous",    quote: ":3" },
+    { attribution: "Anonymous",    quote: "OWO WHAT'S THIS? *NOTICES YOUR MOUSE CURSOR*" },
+    { attribution: "Anonymous",    quote: "BUTTONMAN: PHAR FROM HOME" },
+    { attribution: "Anonymous",    quote: "PRESS PRESS FALL IN LOVE" },
+    { attribution: "Anonymous",    quote: "PRESS TO SUBMIT DEATHLINK" },
+    { attribution: "Anonymous",    quote: "CLIQUE? CRINGE AF" },
+    { attribution: "Anonymous",    quote: "SEND PHAR MORE RANSOMWARE" },
 ];
 
 export function getRandomQuote(locked = false) {
