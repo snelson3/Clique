@@ -3,6 +3,7 @@ import { ArchipelagoClient, ClientStatus, ItemsHandlingFlags } from "archipelago
 import { getRandomQuote } from "./button-quotes";
 import { confettiConfig } from "./confetti_config";
 import ConfettiGenerator from "confetti-js";
+import packageJSON from "../package.json";
 
 // Game elements.
 export const gameElement = <HTMLDivElement>document.querySelector("#game");
@@ -70,7 +71,7 @@ export function toggleGameVisibility(client: ArchipelagoClient) {
     gameElement.classList.remove("hidden");
     loginElement.classList.add("hidden");
 
-    statusElement.innerHTML = `Clique v1.3 - Connected to: ${client.uri}<br>Developed by Phar, Inspiration from alwaysintreble.`;
+    statusElement.innerHTML = `Clique v${packageJSON.version} - Connected to: ${client.uri}<br>Developed by Phar, Inspiration from alwaysintreble.`;
 }
 
 export function lockButton() {
@@ -94,7 +95,7 @@ export function hideTableItem() {
     }
 }
 
-export function receivedKey(client: ArchipelagoClient) {
+export function receivedKey() {
     keyStatusElement.innerText = "You got the key, now fulfil your destiny!";
     buttonElement.classList.remove("locked");
 

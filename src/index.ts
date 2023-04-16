@@ -1,16 +1,19 @@
 import {
     ArchipelagoClient,
+    ClientStatus,
     ConnectedPacket,
     ItemFlags,
     PrintJSONPacket,
     ReceivedItemsPacket
 } from "archipelago.js";
 import {
-    buttonElement, clickSFX,
+    buttonElement,
+    clickSFX,
     collectTableItem,
     connect,
     connectElement,
-    hideTableItem, itemElement,
+    hideTableItem,
+    itemElement,
     lockButton,
     playVictory,
     receivedKey,
@@ -102,13 +105,15 @@ function onPrintJSON(packet: PrintJSONPacket) {
 function onReceivedItems(packet: ReceivedItemsPacket) {
     if (packet.items.filter((i) => i.item === 69696968).length > 0) {
         buttonUnlocked = true;
-        receivedKey(client);
+        receivedKey();
     }
 }
 
 function pressButton() {
     if (buttonUnlocked) {
         playVictory(client);
+        client.locations.check(69696969);
+        client.updateStatus(ClientStatus.GOAL);
         return;
     }
 
