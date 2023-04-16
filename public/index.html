@@ -11,8 +11,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
-    <script src="../node_modules/archipelago.js/dist/archipelago.min.js"></script>
-    <script src="confetti.js"></script>
 
     <!-- Audio resources -->
     <audio id="congratulations_sfx">
@@ -28,21 +26,50 @@
         <source src="sfx/unlock.wav" type="audio/wav">
     </audio>
 
+    <div id="login">
+        <h2>Connect to Clique!</h2>
+
+        <fieldset>
+            <legend>Hostname + Port</legend>
+            <input type="text" id="address" placeholder="archipelago.gg:38281">
+        </fieldset>
+
+        <fieldset>
+            <legend>Slot Name</legend>
+            <input type="text" id="name" placeholder="Clique-head">
+        </fieldset>
+
+        <fieldset>
+            <legend>Password</legend>
+            <input type="password" id="password">
+        </fieldset>
+
+        <button id="connect">Connect</button>
+    </div>
+
     <!-- Game resources -->
     <div id="game" class="hidden">
+        <canvas id="confetti" class="hidden"></canvas>
+
         <!-- Win text -->
         <div id="victory" class="title-container hidden">
             <h1>
                 <span class="title">You</span>
                 <span class="title">Win!</span>
+
+                <!-- This is not a typo, this is on purpose, I swear! -->
                 <span class="title">Conglaturations!</span>
             </h1>
         </div>
 
         <!-- HUD -->
-        <div id="status">a</div>
+        <div id="status">
+            <div id="status_text"></div>
+            <div id="quote"></div>
+        </div>
         <div id="key"></div>
-        <div id="table-item" onclick="collectTableItem()">
+        <div id="table-item">
+            <span>Clique me!</span>
             <img src="assets/archipelago-icon.png" alt="Random AP item on table." width="128" height="128">
         </div>
         <div id="chat"></div>
@@ -50,13 +77,13 @@
         <!-- Button -->
         <div class="button-frame-side">
             <div class="button-frame">
-                <button id="button" class="button" onclick="pressButton()">
+                <button id="button" class="button">
                     <span class="button-face">PUSH ME</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <script defer src="../src/game.js"></script>
+    <script defer src="./script/clique.js"></script>
 </body>
 </html>
