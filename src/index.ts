@@ -12,7 +12,9 @@ import {
     clickSFX,
     collectTableItem,
     connect,
-    connectElement, countdownElement,
+    connectElement,
+    legacyElement,
+    countdownElement,
     hideTableItem,
     itemElement,
     lockButton,
@@ -29,15 +31,36 @@ connectElement.addEventListener("click", () => {
     connectElement.disabled = true;
     connect(client);
     void clickSFX.play();
-})
+});
+
+legacyElement.addEventListener("click", () => {
+    const protocol = window.location.protocol;
+
+    void clickSFX.play();
+    if (protocol === "https:") {
+        window.location.href = window.location.href.replace("https:", "http:");
+    } else if (protocol === "http:") {
+        window.location.href = window.location.href.replace("http:", "https:");
+    }
+});
+
+window.addEventListener("load", () => {
+    const protocol = window.location.protocol;
+
+    if (protocol === "https:") {
+        legacyElement.innerHTML = "Switch to HTTP<br><small>Supports WS & WSS</small>";
+    } else if (protocol === "http:") {
+        legacyElement.innerHTML = "Switch to HTTPS<br><small>Supports WSS</small>";
+    }
+});
 
 itemElement.addEventListener("click", () => {
     collectTableItem(client);
-})
+});
 
 buttonElement.addEventListener("click", () => {
     pressButton();
-})
+});
 
 // Setup event listeners.
 client.addListener("connected", onConnected);

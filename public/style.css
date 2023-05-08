@@ -65,6 +65,11 @@ h1 {
     position: relative;
 }
 
+#login button#toggle {
+    background: hsl(198, 100%, 47%);
+    border-bottom: 0.5rem solid hsl(196, 100%, 32%);
+}
+
 #login button:active, #login button[disabled] {
     border-bottom-width: 1px;
     transition: transform 600ms cubic-bezier(.3, .7, .4, 1);

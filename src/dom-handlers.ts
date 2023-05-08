@@ -23,6 +23,7 @@ export const addressElement = <HTMLInputElement>document.querySelector("#address
 export const nameElement = <HTMLInputElement>document.querySelector("#name");
 export const passwordElement = <HTMLInputElement>document.querySelector("#password");
 export const connectElement = <HTMLButtonElement>document.querySelector("#connect");
+export const legacyElement = <HTMLButtonElement>document.querySelector("#toggle");
 
 // Sound elements.
 export const cheerSFX = <HTMLAudioElement>document.querySelector("#congratulations_sfx");
