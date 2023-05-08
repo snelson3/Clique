@@ -44,15 +44,13 @@ legacyElement.addEventListener("click", () => {
     }
 });
 
-window.addEventListener("load", () => {
-    const protocol = window.location.protocol;
+const protocol = window.location.protocol;
 
-    if (protocol === "https:") {
-        legacyElement.innerHTML = "Switch to HTTP<br><small>Supports WS & WSS</small>";
-    } else if (protocol === "http:") {
-        legacyElement.innerHTML = "Switch to HTTPS<br><small>Supports WSS</small>";
-    }
-});
+if (protocol === "https:") {
+    legacyElement.innerHTML = "Switch to HTTP<br><small>Supports WS & WSS</small>";
+} else if (protocol === "http:") {
+    legacyElement.innerHTML = "Switch to HTTPS<br><small>Supports WSS ONLY</small>";
+}
 
 itemElement.addEventListener("click", () => {
     collectTableItem(client);
