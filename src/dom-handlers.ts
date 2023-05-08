@@ -15,6 +15,7 @@ export const buttonFaceElement = <HTMLSpanElement>document.querySelector(".butto
 export const itemElement = <HTMLDivElement>document.querySelector("#table-item");
 export const victoryElement = <HTMLDivElement>document.querySelector("#victory");
 export const confettiElement = <HTMLCanvasElement>document.querySelector("#confetti");
+export const countdownElement = <HTMLDivElement>document.querySelector("#countdown");
 
 // Login elements.
 export const loginElement = <HTMLDivElement>document.querySelector("#login");

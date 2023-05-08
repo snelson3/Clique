@@ -4,6 +4,7 @@ import {
     ConnectedPacket,
     ItemFlags,
     PrintJSONPacket,
+    PrintJSONType,
     ReceivedItemsPacket
 } from "archipelago.js";
 import {
@@ -11,7 +12,7 @@ import {
     clickSFX,
     collectTableItem,
     connect,
-    connectElement,
+    connectElement, countdownElement,
     hideTableItem,
     itemElement,
     lockButton,
@@ -59,6 +60,13 @@ function onConnected(packet: ConnectedPacket) {
     toggleGameVisibility(client);
 }
 
+const synthesis = window.speechSynthesis;
+const voices = synthesis.getVoices();
+let voice: SpeechSynthesisVoice | undefined = undefined;
+if (voices.length > 0) {
+    voice = voices[Math.floor(Math.random() * voices.length)];
+}
+
 function onPrintJSON(packet: PrintJSONPacket) {
     const element = document.createElement("div");
     for (const text of packet.data) {
@@ -100,6 +108,43 @@ function onPrintJSON(packet: PrintJSONPacket) {
 
     const chatElement = <HTMLDivElement>document.querySelector("#chat");
     chatElement.appendChild(element);
+
+    // Countdown
+    if (packet.type === PrintJSONType.COUNTDOWN) {
+        if (packet.countdown !== 0) {
+            countdownElement.classList.remove("hidden");
+            countdownElement.innerText = packet.countdown.toString();
+
+            if (voice && packet.data[0] && !packet.data[0].text?.includes("Starting countdown")) {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+
+                const utterance = new SpeechSynthesisUtterance(packet.countdown.toString());
+                utterance.voice = voice;
+                utterance.pitch = 1.5;
+                utterance.rate = 1.5;
+                utterance.volume = 0.8;
+                synthesis.speak(utterance);
+            }
+        } else {
+            setTimeout(() => countdownElement.classList.add("hidden"), 1000);
+            countdownElement.innerText = "GO!";
+
+            if (voice) {
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+
+                const utterance = new SpeechSynthesisUtterance("Go!");
+                utterance.voice = voice;
+                utterance.pitch = 2;
+                utterance.rate = 1.25;
+                utterance.volume = 1;
+                synthesis.speak(utterance);
+            }
+        }
+    }
 }
 
 function onReceivedItems(packet: ReceivedItemsPacket) {

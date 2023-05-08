@@ -51,7 +51,7 @@ h1 {
 #login button {
     will-change: transform;
     background: hsl(345deg 100% 47%);
-    border-radius: 0rem;
+    border-radius: 0;
     border: none;
     border-bottom: 0.5rem solid hsl(340deg 100% 32%);
     padding: 0;
@@ -97,6 +97,20 @@ h1 {
     font-family: Arial, sans-serif;
     font-size: 1rem;
     color: lightgray;
+}
+
+#countdown {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80vmin;
+    color: white;
+    -webkit-text-stroke: 1vmin black;
+    text-shadow: 0 1px 1vmin black;
+    z-index: 99999999;
 }
 
 #status {
