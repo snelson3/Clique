@@ -8,6 +8,7 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".js"],
+        modules: ['src', 'node_modules']
     },
     output: {
         filename: "clique.js",

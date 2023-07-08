@@ -1,5 +1,5 @@
 // Do me a favor, and don't look at all the @ts-ignores below. Thanks!
-import { ArchipelagoClient, ClientStatus, ItemsHandlingFlags } from "archipelago.js";
+import { Client, CLIENT_STATUS, ITEMS_HANDLING_FLAGS } from "archipelago.js";
 import { getRandomQuote } from "./button-quotes";
 import { confettiConfig } from "./confetti_config";
 import ConfettiGenerator from "confetti-js";
@@ -31,13 +31,20 @@ export const clickSFX = <HTMLAudioElement>document.querySelector("#button_click_
 export const errorSFX = <HTMLAudioElement>document.querySelector("#button_error_sfx");
 export const unlockSFX = <HTMLAudioElement>document.querySelector("#button_unlock_sfx");
 
+// TODO: Remove debug code.
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("debug")) {
+    addressElement.value = "localhost:38281";
+    nameElement.value = "CliqueTest";
+}
+
 // Prepare lettering.
 $(() => {
     // @ts-ignore
     $(".title").lettering();
 })
 
-export function playVictory(client: ArchipelagoClient) {
+export function playVictory(client: Client) {
     setTimeout(() => {
         victoryElement.classList.remove("hidden");
         confettiElement.classList.remove("hidden");
@@ -63,13 +70,13 @@ export function playVictory(client: ArchipelagoClient) {
     void clickSFX.play();
 }
 
-export function collectTableItem(client: ArchipelagoClient) {
-    client.updateStatus(ClientStatus.PLAYING);
+export function collectTableItem(client: Client) {
+    client.updateStatus(CLIENT_STATUS.PLAYING);
     client.locations.check(69696968);
     itemElement.classList.add("hidden");
 }
 
-export function toggleGameVisibility(client: ArchipelagoClient) {
+export function toggleGameVisibility(client: Client) {
     gameElement.classList.remove("hidden");
     loginElement.classList.add("hidden");
 
@@ -110,7 +117,7 @@ export function receivedKey() {
     void unlockSFX.play();
 }
 
-export function connect(client: ArchipelagoClient) {
+export function connect(client: Client) {
     const address = addressElement.value.trim();
     const slotName = nameElement.value.trim();
     const password = passwordElement.value.trim();
@@ -122,16 +129,19 @@ export function connect(client: ArchipelagoClient) {
     }
 
     // This is some gross regex, but don't look too closely.
-    const regex = /^(\/connect )?((wss?):\/\/)?([\w\.]+)(:([0-9]{1,5}))?$/
+    const regex = /^(\/connect )?((wss?):\/\/)?([\w\.]+)(:([0-9]{1,5}))?/
     const [_0, _1, _2, protocol, hostname, _5, port] = regex.exec(address) as RegExpExecArray;
+    const wssProtocol = protocol as "ws" | "wss" | undefined;
 
     client.connect({
         name: slotName,
         password: password,
         game: "Clique",
-        version: { major: 0, minor: 4, build: 1 },
-        items_handling: ItemsHandlingFlags.REMOTE_ALL,
-    }, hostname, port ? parseInt(port) : 38281, (protocol as "ws" | "wss" | undefined) ?? null)
+        items_handling: ITEMS_HANDLING_FLAGS.REMOTE_ALL,
+        hostname,
+        port: parseInt(port) ?? 38281,
+        protocol: wssProtocol,
+    })
         .catch((error) => {
             alert("Failed to connect: " + error[0]);
             console.error(error);

@@ -1,6 +1,6 @@
 {
   "name": "clique",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "The greatest game ever created.",
   "main": "archipelago.min.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "Zach Parks <zach@alliware.com>",
   "license": "MIT",
   "dependencies": {
-    "archipelago.js": "file:../archipelago.js/packs/archipelago.js-0.6.0.tgz",
+    "archipelago.js": "file:../archipelago.js/packs/archipelago.js-1.0.0.tgz",
     "confetti-js": "^0.0.18"
   },
   "devDependencies": {

@@ -1,11 +1,10 @@
 import {
-    ArchipelagoClient,
-    ClientStatus,
+    Client, CLIENT_STATUS,
     ConnectedPacket,
-    ItemFlags,
     PrintJSONPacket,
-    PrintJSONType,
-    ReceivedItemsPacket
+    PRINT_JSON_TYPE,
+    ReceivedItemsPacket,
+    SERVER_PACKET_TYPE
 } from "archipelago.js";
 import {
     buttonElement,
@@ -25,7 +24,9 @@ import {
 
 let buttonUnlocked = true;
 
-const client = new ArchipelagoClient();
+const client = new Client();
+// @ts-ignore
+window.client = client;
 
 connectElement.addEventListener("click", () => {
     connectElement.disabled = true;
@@ -60,12 +61,18 @@ buttonElement.addEventListener("click", () => {
     pressButton();
 });
 
+console.log("setting up listener");
+client.addListener("PacketReceived", (p) => console.log(p));
+console.log("finished setting listener");
+
 // Setup event listeners.
-client.addListener("connected", onConnected);
-client.addListener("receivedItems", onReceivedItems);
-client.addListener("printJSON", onPrintJSON);
+client.addListener(SERVER_PACKET_TYPE.CONNECTED, onConnected);
+client.addListener(SERVER_PACKET_TYPE.RECEIVED_ITEMS, onReceivedItems);
+client.addListener(SERVER_PACKET_TYPE.PRINT_JSON, onPrintJSON);
 
 function onConnected(packet: ConnectedPacket) {
+    console.log("connected!");
+
     // Check if we're in hard mode.
     if (packet.checked_locations.includes(69696968) || packet.missing_locations.includes(69696968)) {
         buttonUnlocked = false;
@@ -88,50 +95,19 @@ if (voices.length > 0) {
     voice = voices[Math.floor(Math.random() * voices.length)];
 }
 
-function onPrintJSON(packet: PrintJSONPacket) {
+function onPrintJSON(packet: PrintJSONPacket, message: string) {
     const element = document.createElement("div");
-    for (const text of packet.data) {
-        if (text.text) {
-            const textElement = document.createElement("span");
-            if (text.color) {
-                textElement.style.color = text.color;
-            }
+    const textElement = document.createElement("span");
 
-            if (text.type === "player_id") {
-                textElement.innerText = client.players.alias(parseInt(text.text));
-                textElement.style.color = "#EB5160";
-            } else if (text.type === "item_id") {
-                textElement.innerText = client.items.name(parseInt(text.text));
-
-                if (text.flags as number & ItemFlags.PROGRESSION) {
-                    textElement.style.color = "#5E239D";
-                } else if (text.flags as number & ItemFlags.NEVER_EXCLUDE) {
-                    textElement.style.color = "#476C9B";
-                } else if (text.flags as number & ItemFlags.TRAP) {
-                    textElement.style.color = "#F75C03";
-                } else {
-                    textElement.style.color = "#8EB1C7";
-                }
-            } else if (text.type === "location_id") {
-                textElement.innerText = client.locations.name(parseInt(text.text));
-                textElement.style.color = "#00CC66";
-            } else if (text.type === "entrance_name") {
-                textElement.innerText = text.text;
-                textElement.style.color = "#2274A5";
-            } else {
-                textElement.innerText = text.text;
-            }
-
-            element.appendChild(textElement);
-            setTimeout(() => element.remove(), 15_000);
-        }
-    }
+    textElement.innerText = message;
+    element.appendChild(textElement);
+    setTimeout(() => element.remove(), 15_000);
 
     const chatElement = <HTMLDivElement>document.querySelector("#chat");
     chatElement.appendChild(element);
 
     // Countdown
-    if (packet.type === PrintJSONType.COUNTDOWN) {
+    if (packet.type === PRINT_JSON_TYPE.COUNTDOWN) {
         if (packet.countdown !== 0) {
             countdownElement.classList.remove("hidden");
             countdownElement.innerText = packet.countdown.toString();
@@ -179,7 +155,7 @@ function pressButton() {
     if (buttonUnlocked) {
         playVictory(client);
         client.locations.check(69696969);
-        client.updateStatus(ClientStatus.GOAL);
+        client.updateStatus(CLIENT_STATUS.GOAL);
         return;
     }
 
