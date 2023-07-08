@@ -11,7 +11,7 @@
   "author": "Zach Parks <zach@alliware.com>",
   "license": "MIT",
   "dependencies": {
-    "archipelago.js": "file:../archipelago.js/packs/archipelago.js-1.0.0.tgz",
+    "archipelago.js": "^1.0.0",
     "confetti-js": "^0.0.18"
   },
   "devDependencies": {
