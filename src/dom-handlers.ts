@@ -73,6 +73,10 @@ export function playVictory(client: Client, deathLink: boolean) {
         winText.children[0].innerHTML = "YOU";
         winText.children[1].innerHTML = "KILLED";
         winText.children[2].innerHTML = "EVERYBODY! OOPS";
+        $(() => {
+            // @ts-ignore
+            $(".title").lettering();
+        })
     } else {
         void clickSFX.play();
     }
