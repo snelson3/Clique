@@ -19,8 +19,9 @@ import {
     lockButton,
     playVictory,
     receivedKey,
-    toggleGameVisibility
+    toggleGameVisibility, buttonFaceElement
 } from "./dom-handlers";
+import { DeathLinkData } from "archipelago.js/dist/types/DeathLinkData";
 
 let buttonUnlocked = true;
 
@@ -153,9 +154,23 @@ function onReceivedItems(packet: ReceivedItemsPacket) {
 
 function pressButton() {
     if (buttonUnlocked) {
-        playVictory(client);
+        playVictory(client, buttonFaceElement.innerText.includes("DEATHLINK"));
         client.locations.check(69696969);
         client.updateStatus(CLIENT_STATUS.GOAL);
+
+        if (buttonFaceElement.innerText.includes("DEATHLINK")) {
+            const name = client.players.alias(client.data.slot);
+            client.send({
+                cmd: "Bounce",
+                tags: ["DeathLink"],
+                data: ({
+                    source: name,
+                    time: Date.now() / 1000,
+                    cause: `${name} thought it was a good idea to press the button when it said: ${buttonFaceElement.innerText}`,
+                } as DeathLinkData)
+            });
+        }
+
         return;
     }
 

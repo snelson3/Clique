@@ -50,6 +50,11 @@ export const locked_quotes: ButtonQuote[] = [
     { attribution: "Mav",           quote: "... AND HURT YOU" },
     { attribution: "Phar",          quote: "I HAVE TO ASK MY MOM FIRST" },
     { attribution: "Scipio Wright", quote: ".: :;" },
+    { attribution: "Hopop",         quote: "BLAME PHAR" },
+    { attribution: "ProfBytes",     quote: "YOU MUST CONSTRUCT ADDITIONAL PYLONS" },
+    { attribution: "Hopop",         quote: "STOP TRYING TO PRESS ME" },
+    { attribution: "Hopop",         quote: "WAITING FOR CLIQUE 2" },
+    { attribution: "ProfBytes",     quote: "WE JUST DON'T CLIQUE" },
 ];
 
 export const button_quotes: ButtonQuote[] = [
@@ -60,6 +65,7 @@ export const button_quotes: ButtonQuote[] = [
     { attribution: "Phar",          quote: "WIN PLZ" },
     { attribution: "Phar",          quote: "HI! :)" },
     { attribution: "Phar",          quote: "DESTROY ALL HUMANS" },
+    { attribution: "Phar",          quote: "DEATHLINK ALL HUMANS" },
     { attribution: "Phar",          quote: "RELEASE CLIQUE 2" },
     { attribution: "Phar",          quote: "YES!" },
     { attribution: "Phar",          quote: "END THE WORLD" },
@@ -97,7 +103,14 @@ export const button_quotes: ButtonQuote[] = [
     { attribution: "StevenRoy",     quote: "BOOP THE SNOOT" },
     { attribution: "Mav",           quote: "DISENCHANT YOUR HEARTHSTONE CARDS" },
     { attribution: "Mav",           quote: "NOW!" },
-    { attribution: "Mav",           quote: "TAKE ME, I'M READY" },
+    { attribution: "Phar",          quote: "GOOD THING CLIQUE DOESN'T HAVE DEATHLINK"},
+    { attribution: "Hopop",         quote: "JUST GOING TO SLIDE IN" },
+    { attribution: "Hopop",         quote: "PHAR WANTED MORE" },
+    { attribution: "ProfBytes",     quote: "CAN LOVE BLOOM IN A BUTTON PRESS?" },
+    { attribution: "Hopop",         quote: "ANOTHER DAY, ANOTHER CLIQUE" },
+    { attribution: "Hopop",         quote: "ONE OF THE GAMES OF ALL TIME" },
+    { attribution: "Anonymous",     quote: "WHAT DOES THIS BUTTON DO?" },
+    { attribution: "Phar",          quote: "WHAT'S UP CLIQUEHEAD... WAIT THAT CAME OUT WRONG" },
 ];
 
 export function getRandomQuote(locked = false) {

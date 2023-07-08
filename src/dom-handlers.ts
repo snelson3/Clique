@@ -44,7 +44,7 @@ $(() => {
     $(".title").lettering();
 })
 
-export function playVictory(client: Client) {
+export function playVictory(client: Client, deathLink: boolean) {
     setTimeout(() => {
         victoryElement.classList.remove("hidden");
         confettiElement.classList.remove("hidden");
@@ -67,7 +67,15 @@ export function playVictory(client: Client) {
         void cheerSFX.play();
     }, 1000);
 
-    void clickSFX.play();
+    if (deathLink) {
+        void (document.getElementById("button_hatefx") as HTMLAudioElement)?.play();
+        const winText = document.querySelector("#victory_text") as Element;
+        winText.children[0].innerHTML = "YOU";
+        winText.children[1].innerHTML = "KILLED";
+        winText.children[2].innerHTML = "EVERYBODY! OOPS";
+    } else {
+        void clickSFX.play();
+    }
 }
 
 export function collectTableItem(client: Client) {
