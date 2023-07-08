@@ -152,13 +152,15 @@ function onReceivedItems(packet: ReceivedItemsPacket) {
     }
 }
 
+let canDeathLink = true;
 function pressButton() {
     if (buttonUnlocked) {
         playVictory(client, buttonFaceElement.innerText.includes("DEATHLINK"));
         client.locations.check(69696969);
         client.updateStatus(CLIENT_STATUS.GOAL);
 
-        if (buttonFaceElement.innerText.includes("DEATHLINK")) {
+        if (buttonFaceElement.innerText.includes("DEATHLINK") && canDeathLink) {
+            canDeathLink = false;
             const name = client.players.alias(client.data.slot);
             client.send({
                 cmd: "Bounce",
@@ -169,6 +171,17 @@ function pressButton() {
                     cause: `${name} thought it was a good idea to press the button when it said: ${buttonFaceElement.innerText}`,
                 } as DeathLinkData)
             });
+
+            const element = document.createElement("div");
+            const textElement = document.createElement("span");
+
+            textElement.style.color = "red";
+            textElement.innerText = `[DeathLink]: ${name} thought it was a good idea to press the button when it said: ${buttonFaceElement.innerText}`;
+            element.appendChild(textElement);
+            setTimeout(() => element.remove(), 15_000);
+
+            const chatElement = <HTMLDivElement>document.querySelector("#chat");
+            chatElement.appendChild(element);
         }
 
         return;
