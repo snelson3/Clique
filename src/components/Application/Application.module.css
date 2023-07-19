@@ -1,0 +1,125 @@
+.Application {
+    display: flex;
+    height: 100vh;
+}
+
+.Game {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.Chat {
+    height: 100%;
+    width: 372px;
+    background-color: #201e2d;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 0 3px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: end;
+    position: relative;
+    transition: width 1s ease-in-out, height 1s ease-in-out;
+}
+
+.Chat.Disabled {
+    width: 0;
+}
+
+.Chat.Disabled .ChatMessages, .Chat.Disabled .ChatInput {
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.ToggleChat {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    right: -48px;
+    top: 1rem;
+    background-color: #201e2d;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ToggleChatIcon {
+    background-image: url("./chat_icon.png");
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+}
+
+.ChatMessages {
+    width: 100%;
+    font-size: 0.8rem;
+    overflow-y: auto;
+    transition: opacity 1s ease-in-out;
+}
+
+.ChatMessages div {
+    user-select: text;
+    padding-top: 0.5rem;
+}
+
+.ChatMessages div span {
+    user-select: text;
+}
+
+.ChatInput {
+    background-color: rgba(45, 45, 45, 0.9);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: opacity 1s ease-in-out;
+}
+
+@media (max-width: 400px) {
+    .Chat {
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 620px) {
+    .ChatMessages {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 620px) and (min-height: 720px) {
+    .Application {
+        flex-direction: column;
+    }
+
+    .Chat {
+        width: 100%;
+        height: 420px;
+    }
+
+    .Chat.Disabled {
+        height: 0;
+        width: 100%;
+    }
+
+    .ToggleChat {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        bottom: -40px;
+        right: 1rem;
+        top: revert;
+        left: revert;
+    }
+}

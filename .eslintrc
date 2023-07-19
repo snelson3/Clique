@@ -1,0 +1,23 @@
+########################################################################################################################
+## Phar's standard .eslintrc configuration.                                                                           ##
+########################################################################################################################
+
+root: true
+parser: "@typescript-eslint/parser"
+plugins:
+  - "@typescript-eslint"
+extends:
+  - "eslint:recommended"
+  - "plugin:@typescript-eslint/recommended"
+rules:
+  arrow-parens:         ["error"]
+  comma-dangle:         ["error", "always-multiline"]
+  eol-last:             ["error"]
+  indent:               ["error", 4, { "SwitchCase": 1 }]
+  max-len:              ["warn", 120]
+  no-console:           ["warn"]
+  no-case-declarations: ["off"]
+  object-curly-spacing: ["error", "always"]
+  quotes:               ["error", "double"]
+  quote-props:          ["error", "consistent"]
+  semi:                 ["error"]
