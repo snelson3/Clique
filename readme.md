@@ -2,7 +2,7 @@
 
 ~~The greatest game ever designed by anyone ever.~~ An early april fools and "shitpost" game for Archipelago. This is the client implementation for the game.
 
-Play the game at [clique.pharware.com](https://clique.pharware.com)!
+Play the game at [clique.pharware.com](http://clique.pharware.com)!
 
 This repository does not include assets, however they are optional to run.
 

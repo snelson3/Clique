@@ -114,9 +114,11 @@ const Button: Component<ButtonProps> = ({ client, setCompleted, lockedButton, ac
                         class={`${styles.Button} ${!active() && styles.Locked} ${styles[color()]}`}
                         onclick={() => click()}
                     >
-                        <span class={styles.ButtonFace}>
-                            {active() ? activeButton.quote : lockedButton.quote}
-                        </span>
+                        <div class={styles.ButtonFace}>
+                            <span style={{ transform: "scale(0.9)" }}>
+                                {active() ? activeButton.quote : lockedButton.quote}
+                            </span>
+                        </div>
                     </button>
 
 
