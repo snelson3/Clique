@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Titan+One&display=swap");
+
+.wrapper {
+    width: 100vw;
+    text-align: center;
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    z-index: 99999;
+
+    span {
+        -webkit-text-stroke-width: 1.25px;
+        -webkit-text-stroke-color: #000;
+        font-size: 100px;
+        text-shadow: 0 0 #f3c623, 0 0 #f2aaaa;
+        transform: translate(0, 100%) rotate(4deg);
+        opacity: 0;
+        display: inline-block;
+        font-family: "Titan One", cursive;
+        color: #fff;
+        animation: none;
+
+        @for $i from 1 through 16 {
+            &:nth-child(#{$i}) {
+                animation-delay: 120ms * $i;
+            }
+        }
+    }
+}
+
+.animate {
+    span {
+        animation: fadein 2s ease-in-out 1 forwards, jump 2s ease-in-out infinite;
+    }
+}
+
+@keyframes jump {
+    33% {
+        opacity: 1;
+        text-shadow: 0 30px #ef3030, 0 80px #c71717;
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(-4deg);
+        text-shadow: 0 0 #306d9d, 0 0 #1ea5b2;
+    }
+
+    66.67% {
+        opacity: 1;
+        text-shadow: 0 -30px #7740d5, 0 -80px #b48fc0;
+    }
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 620px), (max-height: 640px) {
+    .wrapper {
+        transform: scale(60%);
+        transform-origin: center;
+    }
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+    .wrapper {
+        transform: scale(40%);
+        transform-origin: center;
+    }
+}

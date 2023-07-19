@@ -1,195 +1,154 @@
-import {
-    Client, CLIENT_STATUS,
-    ConnectedPacket,
-    PrintJSONPacket,
-    PRINT_JSON_TYPE,
-    ReceivedItemsPacket,
-    SERVER_PACKET_TYPE
-} from "archipelago.js";
-import {
-    buttonElement,
-    clickSFX,
-    collectTableItem,
-    connect,
-    connectElement,
-    legacyElement,
-    countdownElement,
-    hideTableItem,
-    itemElement,
-    lockButton,
-    playVictory,
-    receivedKey,
-    toggleGameVisibility, buttonFaceElement
-} from "./dom-handlers";
-import { DeathLinkData } from "archipelago.js/dist/types/DeathLinkData";
+import type { Component } from "solid-js";
+import { createSignal } from "solid-js";
+import { Client, DeathLinkData, ITEM_FLAGS, PrintJSONPacket } from "archipelago.js";
 
-let buttonUnlocked = true;
+import LoginMenu from "../LoginMenu";
+import Button from "../Button";
+import Confetti from "../Confetti";
+import VictoryBanner from "../VictoryBanner";
+import Copyright from "../Copyright";
 
-const client = new Client();
-// @ts-ignore
-window.client = client;
+import styles from "./Application.module.css";
+import buttonTexts from "../../resources/quotes.json";
+import { ButtonTextArrays } from "../../types/ButtonText";
+import { CliqueSlotData } from "../../types/CliqueSlotData";
 
-connectElement.addEventListener("click", () => {
-    connectElement.disabled = true;
-    connect(client);
-    void clickSFX.play();
-});
+type KeyboardChatEvent = KeyboardEvent & {currentTarget: HTMLInputElement, target: Element}
 
-legacyElement.addEventListener("click", () => {
-    const protocol = window.location.protocol;
-
-    void clickSFX.play();
-    if (protocol === "https:") {
-        window.location.href = window.location.href.replace("https:", "http:");
-    } else if (protocol === "http:") {
-        window.location.href = window.location.href.replace("http:", "https:");
-    }
-});
-
-const protocol = window.location.protocol;
-
-if (protocol === "https:") {
-    legacyElement.innerHTML = "Switch to HTTP<br><small>Supports WS & WSS</small>";
-} else if (protocol === "http:") {
-    legacyElement.innerHTML = "Switch to HTTPS<br><small>Supports WSS ONLY</small>";
-}
-
-itemElement.addEventListener("click", () => {
-    collectTableItem(client);
-});
-
-buttonElement.addEventListener("click", () => {
-    pressButton();
-});
-
-console.log("setting up listener");
-client.addListener("PacketReceived", (p) => console.log(p));
-console.log("finished setting listener");
-
-// Setup event listeners.
-client.addListener(SERVER_PACKET_TYPE.CONNECTED, onConnected);
-client.addListener(SERVER_PACKET_TYPE.RECEIVED_ITEMS, onReceivedItems);
-client.addListener(SERVER_PACKET_TYPE.PRINT_JSON, onPrintJSON);
-
-function onConnected(packet: ConnectedPacket) {
-    console.log("connected!");
-
-    // Check if we're in hard mode.
-    if (packet.checked_locations.includes(69696968) || packet.missing_locations.includes(69696968)) {
-        buttonUnlocked = false;
-        lockButton();
-    } else {
-       hideTableItem();
-    }
-
-    if (packet.checked_locations.includes(69696968)) {
-        hideTableItem();
-    }
-
-    toggleGameVisibility(client);
-}
-
-const synthesis = window.speechSynthesis;
-const voices = synthesis.getVoices();
-let voice: SpeechSynthesisVoice | undefined = undefined;
-if (voices.length > 0) {
-    voice = voices[Math.floor(Math.random() * voices.length)];
-}
-
-function onPrintJSON(packet: PrintJSONPacket, message: string) {
-    const element = document.createElement("div");
-    const textElement = document.createElement("span");
-
-    textElement.innerText = message;
-    element.appendChild(textElement);
-    setTimeout(() => element.remove(), 15_000);
-
-    const chatElement = <HTMLDivElement>document.querySelector("#chat");
-    chatElement.appendChild(element);
-
-    // Countdown
-    if (packet.type === PRINT_JSON_TYPE.COUNTDOWN) {
-        if (packet.countdown !== 0) {
-            countdownElement.classList.remove("hidden");
-            countdownElement.innerText = packet.countdown.toString();
-
-            if (voice && packet.data[0] && !packet.data[0].text?.includes("Starting countdown")) {
-                if (speechSynthesis.speaking) {
-                    speechSynthesis.cancel();
+function renderText(packet: PrintJSONPacket, client: Client): HTMLDivElement {
+    const chatElement = document.createElement("div");
+    for (const part of packet.data) {
+        const partElement = document.createElement("span");
+        switch (part.type) {
+            case "item_id":
+                // Get item color.
+                if (part.flags & ITEM_FLAGS.PROGRESSION) {
+                    partElement.style.color = "#AF99EF";
+                } else if (part.flags & ITEM_FLAGS.NEVER_EXCLUDE) {
+                    partElement.style.color = "#6D8BE8";
+                } else if (part.flags & ITEM_FLAGS.TRAP) {
+                    partElement.style.color = "#FA8072";
+                } else {
+                    partElement.style.color = "#00EEEE";
                 }
 
-                const utterance = new SpeechSynthesisUtterance(packet.countdown.toString());
-                utterance.voice = voice;
-                utterance.pitch = 1.5;
-                utterance.rate = 1.5;
-                utterance.volume = 0.8;
-                synthesis.speak(utterance);
-            }
-        } else {
-            setTimeout(() => countdownElement.classList.add("hidden"), 1000);
-            countdownElement.innerText = "GO!";
+                const item = client.players.get(part.player)?.item(parseInt(part.text));
+                partElement.innerText = item ?? `Unknown Item (${part.text})`;
+                break;
 
-            if (voice) {
-                if (speechSynthesis.speaking) {
-                    speechSynthesis.cancel();
+            case "location_id":
+                partElement.style.color = "#00FF7F";
+                const location = client.players.get(part.player)?.location(parseInt(part.text));
+                partElement.innerText = location ?? `Unknown Location (${part.text})`;
+                break;
+
+            case "entrance_name":
+                partElement.style.color = "#6495ED";
+                partElement.innerText = part.text;
+                break;
+
+            case "player_id":
+                // Is it us or another player?
+                if (parseInt(part.text) === client.data.slot) {
+                    partElement.style.color = "#EE00EE";
+                } else {
+                    partElement.style.color = "#FAFAD2";
                 }
 
-                const utterance = new SpeechSynthesisUtterance("Go!");
-                utterance.voice = voice;
-                utterance.pitch = 2;
-                utterance.rate = 1.25;
-                utterance.volume = 1;
-                synthesis.speak(utterance);
-            }
-        }
-    }
-}
+                const player = client.players.get(parseInt(part.text));
+                let name: string;
+                if (!player) {
+                    name = `Unknown Player (${part.text})`;
+                } else {
+                    name = player.alias === player.name ? player.name : `${player.alias} (${player.name})`;
+                }
 
-function onReceivedItems(packet: ReceivedItemsPacket) {
-    if (packet.items.filter((i) => i.item === 69696968).length > 0) {
-        buttonUnlocked = true;
-        receivedKey();
-    }
-}
+                partElement.innerText = name;
+                break;
 
-let canDeathLink = true;
-function pressButton() {
-    if (buttonUnlocked) {
-        playVictory(client, buttonFaceElement.innerText.includes("DEATHLINK"));
-        client.locations.check(69696969);
-        client.updateStatus(CLIENT_STATUS.GOAL);
-
-        if (buttonFaceElement.innerText.includes("DEATHLINK") && canDeathLink) {
-            canDeathLink = false;
-            const name = client.players.alias(client.data.slot);
-            client.send({
-                cmd: "Bounce",
-                tags: ["DeathLink"],
-                data: ({
-                    source: name,
-                    time: Date.now() / 1000,
-                    cause: `${name} thought it was a good idea to press the button when it said: ${buttonFaceElement.innerText}`,
-                } as DeathLinkData)
-            });
-
-            const element = document.createElement("div");
-            const textElement = document.createElement("span");
-
-            textElement.style.color = "red";
-            textElement.innerText = `[DeathLink]: ${name} thought it was a good idea to press the button when it said: ${buttonFaceElement.innerText}`;
-            element.appendChild(textElement);
-            setTimeout(() => element.remove(), 15_000);
-
-            const chatElement = <HTMLDivElement>document.querySelector("#chat");
-            chatElement.appendChild(element);
+            default:
+                partElement.innerText = part.text;
+                break;
         }
 
-        return;
+        chatElement.appendChild(partElement);
     }
 
-    void (document.getElementById("button_error_sfx") as HTMLAudioElement)?.play();
+    return chatElement;
 }
 
+const Application: Component = () => {
+    printConsoleFunny();
+    let chatMessageLog: HTMLDivElement | undefined;
+    const [completion, setCompletion] = createSignal(false);
+    const [showChat, setShowChat] = createSignal(false);
+    const client = new Client<CliqueSlotData>();
+
+    const buttonTextArray = buttonTexts as ButtonTextArrays;
+    const lockedButton = buttonTextArray.locked[Math.floor(Math.random() * buttonTextArray.locked.length)];
+    const activeButton = buttonTextArray.unlocked[Math.floor(Math.random() * buttonTextArray.unlocked.length)];
+
+    client.addListener("PrintJSON", (packet) => {
+        if (!chatMessageLog) {
+            return;
+        }
+
+        const element = renderText(packet, client);
+        chatMessageLog.appendChild(element);
+        chatMessageLog.scrollTop = chatMessageLog.scrollHeight;
+    });
+    client.addListener("Bounced", (packet) => {
+        if (!chatMessageLog) {
+            return;
+        }
+
+        if (packet.tags?.includes("DeathLink")) {
+            const deathLink = packet.data as DeathLinkData;
+            const chatElement = document.createElement("div");
+            chatElement.style.color = "red";
+            chatElement.innerText = `[DeathLink (${deathLink.source})]: ${deathLink.cause ?? "Sent a death link!"}`;
+            chatMessageLog.appendChild(chatElement);
+            chatMessageLog.scrollTop = chatMessageLog.scrollHeight;
+        }
+    });
+
+    const onKeyboardChatEvent = (event: KeyboardChatEvent) => {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            const message = event.currentTarget.value.trim();
+            event.currentTarget.value = "";
+
+            client.say(message);
+        }
+    };
+
+    return (
+        <div class={styles.Application}>
+            <div class={`${styles.Chat} ${showChat() ? "" : styles.Disabled}`}>
+                <div class={styles.ToggleChat} onClick={() => setShowChat(!showChat())}>
+                    <div class={styles.ToggleChatIcon}></div>
+                </div>
+                <div ref={chatMessageLog} class={styles.ChatMessages}></div>
+                <input class={styles.ChatInput} onKeyUp={onKeyboardChatEvent} />
+            </div>
+            <div class={styles.Game}>
+                <VictoryBanner visible={completion} />
+                <Confetti start={completion} />
+                <LoginMenu client={client} locked={lockedButton} active={activeButton} />
+                <Button
+                    client={client}
+                    setCompleted={setCompletion}
+                    lockedButton={lockedButton}
+                    activeButton={activeButton}
+                />
+                <Copyright locked={lockedButton} active={activeButton} showAttribution={true} />
+            </div>
+        </div>
+    );
+};
+
+
+// eslint-disable-next-line
 function printConsoleFunny() {
     let text = "";
     text += "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠴⠤⠤⠴⠄⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n";
@@ -226,4 +185,4 @@ function printConsoleFunny() {
     console.log(text);
 }
 
-printConsoleFunny();
+export default Application;

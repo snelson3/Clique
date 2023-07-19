@@ -1,0 +1,289 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+
+.ButtonFrame {
+    position: relative;
+    box-sizing: content-box;
+    display: flex;
+    height: 264px;
+    width: 232px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: hsl(0, 0%, 24%);
+    /*box-shadow: 0 0 40px 5px darkorange;*/
+}
+
+.ButtonFrameMiddle {
+    box-sizing: content-box;
+    background-color: hsl(0, 0%, 34%);
+    display: flex;
+    flex-direction: column;
+    height: calc(264px - 1rem - 4px);
+    width: 232px;
+    align-items: center;
+    /*align-items: center;*/
+    padding-top: 1rem;
+    border-radius: 1rem;
+    transform: translateY(-23px);
+}
+
+.ButtonFrameFace {
+    box-sizing: content-box;
+    background-color: hsl(0, 0%, 30%);
+    display: flex;
+    flex-direction: column;
+    height: calc(264px - 1rem);
+    width: 232px;
+    align-items: center;
+    /*align-items: center;*/
+    padding-top: 1rem;
+    border-radius: 1rem 1rem 1.2rem 1.2rem;
+    transform: translateY(-22px);
+}
+
+.Button {
+    box-sizing: content-box;
+    background: hsl(0, 0%, 45%);
+    border-radius: 1rem;
+    border: none;
+    padding: 0;
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+    outline-offset: 4px;
+}
+
+.ButtonFace {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    height: 200px;
+    width: 200px;
+    will-change: transform;
+    transition: transform 500ms cubic-bezier(.3, .7, .4, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: hsl(0, 0%, 31%);
+    color: white;
+    transform: translateY(-48px);
+}
+
+/* Colors */
+.Button.red {
+    background: hsl(353, 100%, 30%);
+}
+.Button.red .ButtonFace {
+    background: hsl(353, 100%, 50%);
+}
+
+.Button.orange {
+    background: hsl(34, 100%, 30%);
+}
+.Button.orange .ButtonFace {
+    background: hsl(34, 100%, 50%);
+}
+
+.Button.yellow {
+    background: hsl(52, 100%, 30%);
+}
+.Button.yellow .ButtonFace {
+    background: hsl(52, 100%, 50%);
+    color: black;
+}
+
+.Button.green {
+    background: hsl(112, 100%, 30%);
+}
+.Button.green .ButtonFace {
+    background: hsl(112, 100%, 50%);
+}
+
+.Button.cyan {
+    background: hsl(171, 100%, 30%);
+}
+.Button.cyan .ButtonFace {
+    background: hsl(171, 100%, 50%);
+    color: black;
+}
+
+.Button.blue {
+    background: hsl(221, 100%, 30%);
+}
+.Button.blue .ButtonFace {
+    background: hsl(221, 100%, 50%);
+}
+
+.Button.magenta {
+    background: hsl(292, 100%, 30%);
+}
+.Button.magenta .ButtonFace {
+    background: hsl(292, 100%, 50%);
+}
+
+.Button.purple {
+    background: hsl(255, 100%, 30%);
+}
+.Button.purple .ButtonFace {
+    background: hsl(255, 100%, 50%);
+}
+
+.Button.pink {
+    background: hsl(336, 100%, 45%);
+}
+.Button.pink .ButtonFace {
+    background: hsl(336, 100%, 62%);
+}
+
+.Button.brown {
+    background: hsl(25, 100%, 10%);
+}
+.Button.brown .ButtonFace {
+    background: hsl(25, 100%, 21%);
+}
+
+.Button.white {
+    background: hsl(0, 0%, 60%);
+}
+.Button.white .ButtonFace {
+    background: hsl(0, 0%, 88%);
+    color: black;
+}
+
+.Button.black {
+    background: hsl(0, 0%, 5%);
+}
+.Button.black .ButtonFace {
+    background: hsl(0, 0%, 15%);
+}
+
+/* Others */
+
+.ButtonText {
+}
+
+.ButtonStatus {
+    margin-top: 1rem;
+    width: calc(100% - 3rem);
+    height: 32px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    /*text-shadow: #593e00 0 1px 0;*/
+    gap: 0.5rem;
+}
+
+.ButtonStatusText {
+    text-align: right;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #2d2d2d;
+    font-family: "Oswald", sans-serif;
+    line-height: 1.2rem;
+}
+
+.Indicator {
+    width: 16px;
+    height: 44px;
+    background-color: #c90000;
+    /*box-shadow: #c90000 0 0 14px;*/
+    border-radius: 0.5rem 0.5rem 0.2rem 0.2rem;
+}
+
+.IndicatorFace {
+    width: 16px;
+    height: 32px;
+    background-color: red;
+    /*transform: translateY(-4px);*/
+    box-shadow: red 0 0 12px;
+    border-top-right-radius: 0.2rem;
+    border-top-left-radius: 0.2rem;
+}
+
+.Indicator.Active {
+    background-color: #00bd00;
+}
+
+.Indicator.Active .IndicatorFace {
+    background-color: lime;
+    box-shadow: lime 0 0 12px;
+}
+
+.Button.Locked .ButtonFace {
+    transform: translateY(-4px) !important;
+    cursor: not-allowed !important;
+    filter: brightness(70%);
+}
+
+.Button.Locked .ButtonFace:active {
+    transform: translateY(-2px) !important;
+}
+
+.Button.Locked {
+    position: relative;
+    z-index: 0;
+}
+
+.Button.Locked:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -222;
+    background-color: #000;
+    opacity: 0.3;
+    border-radius: 1rem;
+}
+
+.Button:hover .ButtonFace {
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.Button:active .ButtonFace {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+}
+
+.Button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.DeskItem {
+    position: absolute;
+    top: 280px;
+    right: 20px;
+    text-align: right;
+    font-size: 0.8rem;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    background-repeat: no-repeat;
+    animation: glow 2s ease-in-out infinite;
+    gap: 0.5rem;
+}
+
+.DeskItem img {
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+
+@media (max-width: 620px), (max-height: 640px) {
+    .ButtonFrame {
+        transform: scale(75%);
+        transform-origin: center;
+    }
+}
+
+@media (max-width: 400px), (max-height: 400px) {
+    .ButtonFrame {
+        transform: scale(50%);
+        transform-origin: center;
+    }
+}

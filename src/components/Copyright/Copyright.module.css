@@ -1,0 +1,21 @@
+.Copyright {
+    position: absolute;
+    width: 100%;
+    bottom: 1.5rem;
+    font-size: 0.66rem;
+    text-shadow: 0 0 5px mediumpurple;
+    z-index: 0;
+    color: #9784A8;
+    text-align: center;
+}
+
+.Copyright a {
+    color: inherit;
+}
+
+@media (max-width: 400px), (max-height: 480px) {
+    .Copyright {
+        transform: scale(75%);
+        transform-origin: center;
+    }
+}
