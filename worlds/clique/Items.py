@@ -33,6 +33,51 @@ item_data_table: Dict[str, CliqueItemData] = {
         type=ItemClassification.progression,
         can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
     ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968003,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968004,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968005,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968006,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968007,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968008,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968009,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968010,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
+    "Button Activation 3": CliqueItemData(
+        code=69696968011,
+        type=ItemClassification.progression,
+        can_create=lambda multiworld, player: bool(getattr(multiworld, "hard_mode")[player]),
+    ),
     "A Cool Filler Item (No Satisfaction Guaranteed)": CliqueItemData(
         code=69696967,
         can_create=lambda multiworld, player: False  # Only created from `get_filler_item_name`.

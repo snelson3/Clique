@@ -93,7 +93,7 @@ Shahrazad:
       locations:
         - The Big Red Button
       world:
-        - Click
+        - AdamSandler
 
   item_links:
     # Share part of your item pool with other players.

@@ -66,21 +66,84 @@ Clique:
       locations:
         - Game Completed
       world:
-        - SlayGuard
+        - SlayAuto
     - items:
         Button Activation 2: 1
       force: true
       locations:
         - Game Completed
       world:
-        - SlayHermit
+        - SlayChamp
     - items:
         Button Activation 3: 1
       force: true
       locations:
         - Game Completed
       world:
+        - SlayDefect
+    - items:
+        Button Activation 4: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
         - SlayGrem
+    - items:
+        Button Activation 5: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlayGuard
+    - items:
+        Button Activation 6: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlayHermit
+    - items:
+        Button Activation 7: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlayHexa
+    - items:
+        Button Activation 8: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlayIron
+    - items:
+        Button Activation 9: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlaySilent
+    - items:
+        Button Activation 10: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlaySlime
+    - items:
+        Button Activation 11: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlaySnek
+    - items:
+        Button Activation 12: 1
+      force: true
+      locations:
+        - Game Completed
+      world:
+        - SlayWatcher
 
 
   local_items:

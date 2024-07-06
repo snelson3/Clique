@@ -42,11 +42,11 @@ const Button: Component<ButtonProps> = ({ client, setCompleted, lockedButton, ac
         var activation_items = 0
         console.log(packet.items)
         for (const item of packet.items) {
-            if (item.item === 69696968 || item.item === 69696968001 || item.item === 69696968002) {
+            if (item.item === 69696968 || item.item === 69696968001 || item.item === 69696968002 || item.item === 69696968003 || item.item === 69696968004 || item.item === 69696968005 || item.item === 69696968006 || item.item === 69696968007 || item.item === 69696968008 || item.item === 69696968009 || item.item === 69696968010 || item.item === 69696968011) {
                 activation_items += 1;
             }
         }
-        if (activation_items >= 3)
+        if (activation_items >= 12)
             activateButton()
     });
 
