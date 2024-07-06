@@ -1,34 +1,23 @@
-## Usage
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+## Multi Button Activation Branch
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+I have added the ability for hard mode to require 3 button activations. A future modification may make this number configurable in the apworld
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+extra folders:
+   - worlds: modified StS to include extra "Game Completed" location, and modified Clique to have three button activation items
+   - Players: example yamls showing using this with 'Shahrazad' and plando to unlock a final slay the spire world after beating the other three
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+# Clique
 
-## Available Scripts
+~~The greatest game ever designed by anyone ever.~~ An early april fools and "shitpost" game for Archipelago. This is the client implementation for the game.
 
-In the project directory, you can run:
+Play the game at [clique.pharware.com](http://clique.pharware.com)!
+Play locally with `npm install` and `npm start` then localhost:3000
 
-### `npm run dev` or `npm start`
+This repository does not include assets, however they are optional to run.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This is also an example of the archipelago.js library in use.
 
-The page will reload if you make edits.<br>
+## License
 
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+This project is MIT licensed.
