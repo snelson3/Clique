@@ -41,14 +41,11 @@ const Button: Component<ButtonProps> = ({ client, setCompleted, lockedButton, ac
         // Activate button if we received our activation item.
         var activation_items = 0
         console.log(packet.items)
-        console.log("sam")
         for (const item of packet.items) {
             if (item.item === 69696968 || item.item === 69696968001 || item.item === 69696968002) {
                 activation_items += 1;
             }
         }
-        console.log("cam")
-        console.log(activation_items.length);
         if (activation_items >= 3)
             activateButton()
     });
